@@ -1,0 +1,296 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Ubuntu', sans-serif;
+    word-spacing: 0.4em;
+    letter-spacing: 0.1em;
+}
+body{
+    background-color: rgb(144, 177, 92);
+    /* position: relative; */
+}
+/* #BoxFormLogin{
+    position: realtive;
+} */
+#FormLogin{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.boxFormLogin{
+    width: 100%;
+    height: 500px;
+    background-color:rgb(25, 0, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* box-sizing: border-box; */
+}
+.formLogin{
+    width: 60%;
+    height: 400px;
+    background-color: rgba(0, 96, 221, 0.8);
+}
+.formLoginDiv{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    margin: 10px 5px 10px 5px !important;
+}
+.formLogin input{
+    padding-left: 10px;
+    height: 32px;
+    width: 80%;
+}
+.buttonsLogin{
+    justify-content: space-around;
+}
+.formLogin a{
+    text-decoration: none;
+    color: white;
+    background-color:rgba(1, 1, 66, 0.7);
+    margin: 10px 5px 10px 5px;
+    padding: 5px 10px 5px 10px;
+    border: 2px solid transparent;
+    border-radius: 2rem;
+}
+.top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.box-buttons-top{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.box-buttons-top input{
+    margin: 20px 30px 20px 30px; /* arriba, derecha, abajo, izquierda */
+}
+.container{
+    /* border: 1px solid blue; */
+    display: flex;
+    flex-direction: column;
+    margin: 5px 60px 5px 60px;
+    padding: 5px 60px 5px 60px;
+}
+.header>ul{
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+}
+.options{
+    text-align: center;
+    /* width: 100px; */
+    border: 6px solid #dcd245;
+    background-color: #dcd245;
+    border-radius: 15px 15px 0px 0px;
+    padding: 20px 10px 20px 10px;
+}
+.options a{
+    text-decoration: none;
+    color: rgb(32, 32, 31);
+    font-weight: bold;
+    font-size: 14px;
+}
+.options:hover a{
+    color: white;
+}
+.options:hover{
+    cursor: pointer;
+    border: 6px solid #dbd034;
+    /* border-bottom: 3px solid #dbd034; */
+    background-color: #dbd034;
+    /* background-color: #45cbdc; */
+}
+.footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
+}
+.content{
+    /* border: 1px solid green; */
+    height: 700px;
+}
+.btns-sub-header{
+    padding: 5px 0px 5px 0px;
+    background-color: rgba(129, 211, 36, 0.6) !important;
+    height: auto;
+    width: 100%;
+}
+.btns-sub-header li{
+    display: flex;    
+    align-items: center;
+    justify-content: center;
+    width: 220px;
+    margin: 5px 3px 5px 3px;
+    border: 3px solid transparent;
+    border-radius: 8px;
+    background-color: #e2d95e;
+    padding: 5px 3px 5px 3px;
+    list-style: none;    
+}
+.btns-sub-header ul{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.btns-sub-header a{
+    font-size: 16px;
+    text-decoration: none;    
+    color: rgb(1, 1, 66);
+}
+.options2:hover{
+    cursor: pointer;
+    background-color: black !important;
+    border: 3px solid #dbd034;
+    background-color: #dbd034;
+}
+.options2:hover a{
+    color: white;
+}
+.hidden{
+    display: none;
+    /* position: absolute;    
+    left: -1200px;
+    background-color:red; */
+}
+.selected a{
+    color: white;
+}
+.selected{
+    background-color: black !important;
+    /* border-color: rgb(0, 96, 221); */
+}
+
+.selected2{
+
+    background-color: rgba(129, 211, 36, 0.6) !important;
+    border-color: rgba(129, 211, 36, 0.0) !important;
+}
+.selected2:hover{
+
+    background-color: rgba(129, 211, 36, 0.6) !important;
+    border-color: rgba(129, 211, 36, 0.0) !important;
+}
+.selected2 a{
+    color: white;
+}
+#containerInit{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px 5px 20px 5px;
+}
+#containerInit h2, #containerInit p{
+    width: 100%;
+    border-radius: 2em;
+    border: 1px solid #45cbdc;
+    padding: 8px 5px 8px 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+
+}
+#containerInit h2{
+    text-align: center;
+}
+.consult-title{
+    text-align: center;
+}
+.search-box{
+    display: flex;
+    width: 100%;
+    height: 100px;
+    align-items: center;
+    justify-content: space-around;
+}
+.search-box li{
+    list-style: none;
+}
+select{
+	list-style: none;
+}
+li::marker{
+	list-style: none;
+}
+.search-box-li{
+    height: 50%;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(1, 1, 66);
+    border-radius: 0.8 em;
+    background-color: rgb(1, 1, 66);
+}
+.search-box a{
+    font-size: 20px;
+    font-style: bold;
+    text-decoration: none;    
+    color: rgb(255, 255, 255);
+}
+.search-box-li:hover > a{
+    color: rgb(1, 1, 66);
+
+}
+.search-box-li:hover{
+    background-color: rgb(0, 96, 221);
+}
+.consult-table{
+    width: 100%;
+    height: auto;
+    border: 1px solid black;
+}
+.form-create-item{
+    /* display: flex; */
+    width: 100%;
+    height: auto;
+    border: 1px solid rgb(75, 74, 74);
+}
+.create-item-table{
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    border: 1px solid rgb(75, 74, 74);
+
+}
+.input-data{
+    box-sizing:content-box;
+    width: 98%;
+
+}
+.header-consult-table{
+    background-color: rgb(49, 161, 77);
+    color: rgb(48, 47, 47);
+}
+.item-consult-table{
+    background-color: rgb(49, 100, 77);
+}
+.btn-cancel-creation a, .btn-save-creation a{
+    text-decoration: none;
+    font-style: bold;
+    color:rgb(25, 0, 255);
+}
+.btn-cancel-creation, .btn-save-creation{
+    height: 80%;
+    width: 20%;
+    background-color: white;
+    border: 1px solid rgb(25, 0, 255);
+}
+.btn-cancel-creation:hover, .btn-save-creation:hover{
+    background-color:rgb(1, 1, 66);
+}
+#SelectSearch{
+    width: auto;
+}
+#ConsultTitle{
+    background-color: rgba(129, 211, 36, 0.6) !important;
+}

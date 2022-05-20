@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AjaxApp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+    <div class="top">
+        <p class="logo">AjaxApps</p>
+        <div class="box-buttons-top">
+            <input type="button" value="admin">
+            <input type="button" value="Ayuda">
+        </div>
+    </div>
+    <div class="container">
+        <div class="header" id="Header">
+                      
+        </div>
+        <div class="sub-header" id="SubHeader">
+
+        </div>
+        <div class="menu-ubication" id="TitleUbicationMenu">
+
+        </div>
+        <div class="content" id="Content">
+            <div id="modContainer" class="mod-container">
+
+            </div>
+            <div id="Document" class="document">
+
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>AjaxApp</p>
+    </div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" charset="utf-8"></script>
+<script >   
+   
+    var oldUrls = 'Inicio';
+    var selectValues = '';
+    // var LogIn = 'login';
+    $(document).ready( function(){
+        var emptySubUrl = '';      
+        var subOldUrls = '';
+        // printDocument('login');
+        // $('#Document').load('login.php');
+        // $("#BoxFormLogin a").click(function (e){
+        //     e.preventDefault();
+        //     // pintarCabecera();
+        //     // incluirSubMenu();
+        //     printDocument('Inicio');
+        //     return false;
+        // });
+
+        pintarCabecera();
+        incluirSubMenu();
+
+        $("#Options a").click(function (e) {
+            e.preventDefault();
+            var urls=$(this).attr("href");
+            
+            $(`#BoxSubOptionsButton_${subOldUrls}`).removeClass('selected');
+            $(`#BoxSubOptions_${oldUrls}`).addClass('hidden');
+            $(`#BoxSubOptions_${urls}`).removeClass('hidden');
+            $(`#BoxOption_${oldUrls}`).removeClass('selected2');
+            $(`#BoxOption_${urls}`).addClass('selected2');    
+            if(urls == 'Inicio'){
+                // printTitleUbication(emptySubUrl, urls);
+                printDocument(urls);
+                // $(`#BoxOption_${urls}`).addClass('selected2');
+                // setTimeout(1000);             
+            } else {
+                printDocument('empty.php');
+
+            }          
+            oldUrls = urls;
+            return false;
+        });
+        $("#SubHeader a").click(function (e) {
+            e.preventDefault();
+            var subUrls=$(this).attr("href");
+            var mainUrls=$(this).attr("name");
+            $(`#BoxSubOptionsButton_${subUrls}`).addClass('selected');
+            $(`#BoxSubOptionsButton_${subOldUrls}`).removeClass('selected');
+            $(`#BoxSubOptions_${mainUrls}`).addClass('hidden');
+            // printTitleUbication(subUrls, mainUrls);
+            // printDocument(subUrls);
+            subOldUrls = subUrls;
+            var sendData = {
+                load : {
+                    mainRute : mainUrls,
+                    secondaryRute : subUrls
+                }                  
+            };
+            $.ajax({
+                url: 'brain.php',
+                type: 'POST',
+                data: sendData,
+
+                success: function(msn){
+                    $('#Document').html(msn);
+                }
+            });
+            $(`#modContainer`).removeClass('hidden');
+
+            return false;
+        });
+        $(document).on("mouseenter", "#ConsultTitle", function(e){
+            e.preventDefault();
+            var mainUrls=$('#ConsultTitle').attr("hreflang");
+            $(`#BoxSubOptions_${mainUrls}`).removeClass('hidden');
+            return false;
+        });
+        $(document).on("mouseleave", `#SubHeader`, function(e){
+            e.preventDefault;
+            var mainUrls=$('#ConsultTitle').attr("hreflang");
+            $(`#BoxSubOptions_${mainUrls}`).addClass('hidden');
+            return false;
+        });
+        // $(document).on('change', '#SelectSearch',function(){
+        //         var selectValue = $(this).val($("#SelectSearch option:selected").text());
+        //         console.log(selectValue);
+        //     });
+        $(document).on("click", "#SearchBox a", function (e) {
+            e.preventDefault();
+            var accion=$(this).attr("name");
+            if(accion=="create"){
+                var table=$(this).attr("href");
+                var origin=$(this).attr("id");
+                var sendData = {
+                    create : {
+                        crud : accion,
+                        back: origin,
+                        DBTable : table
+                    }                  
+                };
+                $.ajax({
+                    url: 'brain.php',
+                    type: 'POST',
+                    data: sendData,
+
+                    beforeSend: function(){
+                        $('#Document').html("Go");
+                    },
+                    success: function(msn){
+                        $('#Document').html(msn);
+                    }
+                });               
+            }
+            if(accion=="search"){
+                var selectValue = $('#SelectSearch').val($("#SelectSearch option:selected").text());
+
+                var table=$(this).attr("href");
+                var origin=$(this).attr("hreflang");
+                var value=$('#SearchBox input').val();
+                var key=$("#SelectSearch option:selected").val();
+                
+
+                console.log(table);
+                console.log(origin);
+                console.log(key);
+                console.log(value);
+                // console.log(selectValue);
+
+
+                var sendData = {
+                    search : {
+                        key: key,
+                        value: value,
+                        crud : accion,
+                        back: origin,
+                        DBTable : table
+                    }                  
+                };
+                $.ajax({
+                    url: 'brain.php',
+                    type: 'POST',
+                    data: sendData,
+
+                    beforeSend: function(){
+                        $('#Document').html("Go");
+                    },
+                    success: function(msn){
+                        $('#Document').html(msn);
+                    }
+                });
+
+            }
+            $(`#modContainer`).addClass('hidden');
+            return false;
+        });
+  
+        $(document).on("click", "#boxBtnCancelCreation a", function(e){
+            e.preventDefault();
+            var table=$(this).attr("href");
+            var accion=$(this).attr("name");
+
+            var sendData = {
+                cancelCreate : {
+                    crud : accion,
+                    back: origin,
+                    DBTable : table
+                }                  
+            };
+            $.ajax({
+                url: 'brain.php',
+                type: 'POST',
+                data: sendData,
+
+                beforeSend: function(){
+                    $('#Document').html("Go");
+                },
+                success: function(msn){
+                    $('#Document').html(msn);
+                }
+            });
+            $(`#modContainer`).removeClass('hidden');
+
+            return false;
+        });
+        $(document).on("click", "#boxBtnSaveCreation a", function(e){
+            e.preventDefault();
+            var table=$(this).attr("href");
+            var datas=$(this).attr("id");
+            var accion=$(this).attr("name");
+            var IdInput = [];
+            var test = ['A', 'B', 'C',
+                    'D', 'E', 'F', 'G',
+                    'H', 'I', 'J', 'K',
+                    'L', 'M', 'N', 'Ñ', 
+                    'O', 'P', 'Q', 'R', 
+                    'S', 'T', 'U', 'V',
+                    'W', 'X', 'Y', 'Z'
+                ];
+            var findIndex = [];
+            
+            for (let x=0; x<datas.length; x++) {
+                for (let y=0; y<test.length; y++) {
+                    if(datas[x] == test[y]){
+                        findIndex.push(x);
+                    }
+                }
+            }
+            if(accion=='saveModify'){
+                var value=$(this).attr("hreflang");
+
+                var sendData = {
+                    saveModify : {
+                        crud : accion,
+                        back: origin,
+                        value: value,
+                        datas: findIndex.length,
+                        // datas2: datas,
+                        table : table
+                    }
+                }; 
+            }
+            if(accion == "saveCreate"){
+
+                // var tester = 'Nombre';
+                // var info2=$('#'+tester).val();
+
+                var sendData = {
+                    saveCreate : {
+                        crud : accion,
+                        back: origin,
+                        // info2: info2,
+                        datas: findIndex.length,
+                        // datas2: datas,
+                        DBTable : table
+                    }
+                };               
+            }
+            for (let x=0; x<findIndex.length; x++) {
+                let valueIdInput = 0;
+                valueIdInput = datas.slice(findIndex[x], findIndex[x+1]);
+                sendData[`${accion}`][`inputId${x}`] = valueIdInput;
+                IdInput.push(valueIdInput);
+                console.log(valueIdInput);
+                console.log(IdInput);
+
+            }
+            for (let x=0; x<IdInput.length; x++) {
+                let tester2 = $('#'+IdInput[x]).val();
+                sendData[`${accion}`][`inputIdValue${x}`] = tester2;
+            
+            }
+            
+            
+            $.ajax({
+                url: 'brain.php',
+                type: 'POST',
+                data: sendData,
+
+                beforeSend: function(){
+                    $('#Document').html("Go");
+                },
+                success: function(msn){
+                    $('#Document').html(msn);
+                }
+            });
+            return false;
+        });
+        $(document).on("click", "#ConsultTable a", function(){
+            var table=$(this).attr("class");
+            var key=$(this).attr("href");
+            var value=$(this).attr("id");
+            var sendData = {
+                consultId : {
+                    table : table,
+                    key: key,
+                    value: value
+                }
+            };
+            $.ajax({
+                url: 'brain.php',
+                type: 'POST',
+                data: sendData,
+
+                beforeSend: function(){
+                    $('#Document').html("Go");
+                },
+                success: function(msn){
+                    $('#Document').html(msn);
+                }
+            });
+            return false;
+        });
+        $(document).on("click", "#itemView a", function(e) {
+            e.preventDefault();
+            var accion=$(this).attr("name");
+            var key=$(this).attr("href");
+            var value=$(this).attr("id");
+            var table=$(this).attr("hreflang");
+            if(accion == "Delete"){
+                var sendData = {
+                    Delete : {
+                        table: table,
+                        key: key,
+                        value: value,
+                        accion: accion
+                    }
+                };
+            }
+            if(accion == "Modify"){
+                var sendData = {
+                    Modify : {
+                        table: table,
+                        key: key,
+                        value: value,
+                        accion: "saveModify"
+                    }
+                };
+            }
+            $.ajax({
+                url: 'brain.php',
+                type: 'POST',
+                data: sendData,
+
+                beforeSend: function(){
+                    $('#Document').html("Go");
+                },
+                success: function(msn){
+                    $('#Document').html(msn);
+                }
+            });
+            return false;
+        });
+        // $(document).on("click", "#itemModify a", function(e) {
+        //  e.preventDefault();
+        //  $('#Document').html("we are now creating the form to incorporate new items, sorry for the inconvenience");
+        //  return false;
+        // });
+        // $('#IdTable a').click(function(e) {
+        //  e.preventDefault();
+        //  $('#Document').html("we are now creating the form to incorporate new items, sorry for the inconvenience");
+        //  return false;
+    //  });
+        // setTimeout(1000);
+    });
+    
+</script>
+<script src="java2.js"></script>
+</body>
+</html>
